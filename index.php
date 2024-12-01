@@ -47,6 +47,55 @@ function generate_question($level, $operator)
     ];
 }
 
+// Handling the Quiz Submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    if (isset($_POST['start_quiz'])) {
+
+        // Start Quiz
+
+        $_SESSION['quiz_settings']['current_question'] = 0;
+        $_SESSION['quiz_settings']['correct_answers'] = 0;
+        $_SESSION['quiz_settings']['questions'] = [];
+
+        // Generate Questions based on the Settings below
+
+        for ($i = 0; $i < $_SESSION['quiz_settings']['num_questions']; $i++) {
+            $_SESSION['quiz_settings']['questions'][] = generate_question(
+                $_SESSION['quiz_settings']['level'],
+                $_SESSION['quiz_settings']['operator']
+            );
+        }
+        
+
+    } elseif (isset($_POST['set_settings'])) {
+
+        // Save Quiz Settings (Level, Operator, Amount of Questions, and the Max Difference)
+        $_SESSION['quiz_settings']['level'] = $_POST['level'];
+        $_SESSION['quiz_settings']['operator'] = $_POST['operator'];
+        $_SESSION['quiz_settings']['num_questions'] = (int)$_POST['num_questions'];
+        $_SESSION['quiz_settings']['max_difference'] = (int)$_POST['max_difference'];
+    
+
+    } elseif (isset($_POST['submit_answer'])) {
+        
+        // Reviewing Answers
+        $current_question = $_SESSION['quiz_settings']['current_question'];
+        
+        if (isset($_SESSION['quiz_settings']['questions'][$current_question])) {
+            $correct_answer = $_SESSION['quiz_settings']['questions'][$current_question]['answer'];
+            if ((int)$_POST['answer'] === $correct_answer) {
+                $_SESSION['quiz_settings']['correct_answers']++;
+            }
+        }
+        $_SESSION['quiz_settings']['current_question']++;
+
+        
+    } elseif (isset($_POST['end_quiz'])) {
+        // End Quiz Session
+        $_SESSION['quiz_settings']['current_question'] = $_SESSION['quiz_settings']['num_questions'];
+    }
+}
 ?>
 
 
