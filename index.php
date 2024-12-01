@@ -149,8 +149,62 @@ $quiz_finished = $current_question >= $num_questions;
         <button type="submit" name="set_settings">Save Settings</button>
     </form>
 
+    
+    <!-- The Start Quiz Button only shows if the quiz has not started yet. -->
+    <!-- Quiz Not Started Yet -->
+    <?php if ($current_question === -1): ?>
+        <h2>Welcome to the Math Quiz!</h2>
+        <form method="post">
+            <button type="submit" name="start_quiz">Start Quiz</button>
+        </form>
+
+    <!-- Quiz Finished -->
+    <?php elseif ($quiz_finished): ?>
+        <h2>Your Score: <?php echo $_SESSION['quiz_settings']['correct_answers'] . " / $num_questions"; ?></h2>
+        <form method="post">
+            <button type="submit" name="start_quiz">Restart Quiz</button>
+        </form>
+
+    <!-- Quiz In Progress -->
+    <?php else: ?>
+
+        <?php if (isset($_SESSION['quiz_settings']['questions'][$current_question])): ?>
+            <?php
+            $question_data = $_SESSION['quiz_settings']['questions'][$current_question];
+            $correct_answer = $question_data['answer'];
+            $choices = [$correct_answer];
 
 
+            // Generating 3 Incorrect Choices
+            while (count($choices) < 4) {
+                // Generate Random Incorrect Answer
+                $incorrect_answer = rand($correct_answer - $_SESSION['quiz_settings']['max_difference'], $correct_answer + $_SESSION['quiz_settings']['max_difference']);
+                
+                // Ensuring that the Incorrect Answer is not the same as the Correct Asnwer.
+                if ($incorrect_answer !== $correct_answer && !in_array($incorrect_answer, $choices)) {
+                    $choices[] = $incorrect_answer;
+                }
+            }
+
+            // Shuffle Choices
+            shuffle($choices);
+            ?>
+            
+            <h2>Question <?php echo $current_question + 1; ?>:</h2>
+            <p><?php echo $question_data['question']; ?> = ?</p>
+            <form method="post">
+                <?php foreach (array_slice($choices, 0, 4) as $choice): ?>
+                    <input type="radio" name="answer" value="<?php echo $choice; ?>" required> <?php echo $choice; ?><br>
+                <?php endforeach; ?>
+                <button type="submit" name="submit_answer">Submit</button>
+                <button type="submit" name="end_quiz">End Quiz</button>
+            </form>
+
+        <!-- Validator if Question Data cannot detect -->
+        <?php else: ?>
+            <p>Error: Question data is missing.</p>
+        <?php endif; ?>
+    <?php endif; ?>
 
 </body>
 </html>
