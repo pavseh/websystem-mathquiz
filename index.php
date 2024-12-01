@@ -18,6 +18,34 @@ if (!isset($_SESSION['quiz_settings'])) {
     ];
 }
 
+// (Function) Generate Random Quiz Question
+function generate_question($level, $operator)
+{
+    $max = $level === 1 ? 10 : 100;
+    $num1 = rand(1, $max);
+    $num2 = rand(1, $max);
+    $answer = 0;
+
+    switch ($operator) {
+        case 'addition':
+            $answer = $num1 + $num2;
+            $op = '+';
+            break;
+        case 'subtraction':
+            $answer = $num1 - $num2;
+            $op = '-';
+            break;
+        case 'multiplication':
+            $answer = $num1 * $num2;
+            $op = '×';
+            break;
+    }
+
+    return [
+        'question' => "$num1 $op $num2",
+        'answer' => $answer,
+    ];
+}
 
 ?>
 
