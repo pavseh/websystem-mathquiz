@@ -115,7 +115,42 @@ $quiz_finished = $current_question >= $num_questions;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Math Quiz</title>
 </head>
+
+
 <body>
-    
+    <h1>Math Quiz</h1>
+
+    <!-- (HTML) Quiz Settings Section -->
+    <form method="post">
+        <h2>Settings</h2>
+
+        <!-- Level -->
+        <label>Level:</label>
+        <select name="level">
+            <option value="1" <?php echo $_SESSION['quiz_settings']['level'] == 1 ? 'selected' : ''; ?>>1-10</option>
+            <option value="2" <?php echo $_SESSION['quiz_settings']['level'] == 2 ? 'selected' : ''; ?>>1-100</option>
+        </select><br>
+
+        <!-- Operator -->
+        <label>Operator:</label>
+        <select name="operator">
+            <option value="addition" <?php echo $_SESSION['quiz_settings']['operator'] == 'addition' ? 'selected' : ''; ?>>Addition</option>
+            <option value="subtraction" <?php echo $_SESSION['quiz_settings']['operator'] == 'subtraction' ? 'selected' : ''; ?>>Subtraction</option>
+            <option value="multiplication" <?php echo $_SESSION['quiz_settings']['operator'] == 'multiplication' ? 'selected' : ''; ?>>Multiplication</option>
+        </select><br>
+
+        <!-- Labels -->
+        <label>Number of Questions:</label>
+        <input type="number" name="num_questions" value="<?php echo $_SESSION['quiz_settings']['num_questions']; ?>" min="1" max="20"><br>
+
+        <label>Max Difference:</label>
+        <input type="number" name="max_difference" value="<?php echo $_SESSION['quiz_settings']['max_difference']; ?>" min="1" max="10"><br>
+
+        <button type="submit" name="set_settings">Save Settings</button>
+    </form>
+
+
+
+
 </body>
 </html>
