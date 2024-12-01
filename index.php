@@ -1,10 +1,27 @@
 <!-- Ivern Buala -->
 <!-- Math Quiz using Php -->
 
+
 <?php
+session_start();
+
+// Session Start here
+if (!isset($_SESSION['quiz_settings'])) {
+    $_SESSION['quiz_settings'] = [
+        'level' => 1,
+        'operator' => 'addition',
+        'num_questions' => 5,
+        'max_difference' => 10,
+        'current_question' => -1, // -1 because the quiz has not started yet.
+        'correct_answers' => 0,
+        'questions' => [],
+    ];
+}
 
 
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
