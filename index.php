@@ -96,6 +96,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['quiz_settings']['current_question'] = $_SESSION['quiz_settings']['num_questions'];
     }
 }
+
+
+// Display Quiz
+$current_question = $_SESSION['quiz_settings']['current_question'];
+$num_questions = $_SESSION['quiz_settings']['num_questions'];
+$quiz_finished = $current_question >= $num_questions;
+
 ?>
 
 
