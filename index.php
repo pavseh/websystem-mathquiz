@@ -124,31 +124,39 @@ $quiz_finished = $current_question >= $num_questions;
 
         <!-- (HTML) Quiz Settings Section -->
         <form method="post" class="mb-6">
-            <h2>Settings</h2>
+            <h2 class="text-xl font-semibold mb-4">Quiz Settings</h2>
 
             <!-- Level -->
-            <label>Level:</label>
-            <select name="level">
-                <option value="1" <?php echo $_SESSION['quiz_settings']['level'] == 1 ? 'selected' : ''; ?>>1-10</option>
-                <option value="2" <?php echo $_SESSION['quiz_settings']['level'] == 2 ? 'selected' : ''; ?>>1-100</option>
-            </select><br>
+            <div class="mb-4">
+                <label class="block text-gray-700">Level:</label>
+                <select name="level" class="w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-300">
+                    <option value="1" <?php echo $_SESSION['quiz_settings']['level'] == 1 ? 'selected' : ''; ?>>1-10</option>
+                    <option value="2" <?php echo $_SESSION['quiz_settings']['level'] == 2 ? 'selected' : ''; ?>>1-100</option>
+                </select>
+            </div>
 
             <!-- Operator -->
-            <label>Operator:</label>
-            <select name="operator">
-                <option value="addition" <?php echo $_SESSION['quiz_settings']['operator'] == 'addition' ? 'selected' : ''; ?>>Addition</option>
-                <option value="subtraction" <?php echo $_SESSION['quiz_settings']['operator'] == 'subtraction' ? 'selected' : ''; ?>>Subtraction</option>
-                <option value="multiplication" <?php echo $_SESSION['quiz_settings']['operator'] == 'multiplication' ? 'selected' : ''; ?>>Multiplication</option>
-            </select><br>
+            <div class="mb-4">
+                <label class="block text-gray-700">Operator:</label>
+                <select name="operator" class="w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-300">
+                    <option value="addition" <?php echo $_SESSION['quiz_settings']['operator'] == 'addition' ? 'selected' : ''; ?>>Addition</option>
+                    <option value="subtraction" <?php echo $_SESSION['quiz_settings']['operator'] == 'subtraction' ? 'selected' : ''; ?>>Subtraction</option>
+                    <option value="multiplication" <?php echo $_SESSION['quiz_settings']['operator'] == 'multiplication' ? 'selected' : ''; ?>>Multiplication</option>
+                </select>
+            </div>
 
-            <!-- Labels -->
-            <label>Number of Questions:</label>
-            <input type="number" name="num_questions" value="<?php echo $_SESSION['quiz_settings']['num_questions']; ?>" min="1" max="20"><br>
+            <!-- No. of Questions + Max Difference -->
+            <div class="mb-4">
+                <label class="block text-gray-700">Number of Questions:</label>
+                <input type="number" name="num_questions" value="<?php echo $_SESSION['quiz_settings']['num_questions']; ?>" min="1" max="20" class="w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-300">
+            </div>
 
-            <label>Max Difference:</label>
-            <input type="number" name="max_difference" value="<?php echo $_SESSION['quiz_settings']['max_difference']; ?>" min="1" max="10"><br>
+            <div class="mb-4">
+                <label class="block text-gray-700">Max Difference:</label>
+                <input type="number" name="max_difference" value="<?php echo $_SESSION['quiz_settings']['max_difference']; ?>" min="1" max="10" class="w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-300">
+            </div>
 
-            <button type="submit" name="set_settings">Save Settings</button>
+            <button type="submit" name="set_settings" class="px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600">Save Settings</button>
         </form>
 
         
