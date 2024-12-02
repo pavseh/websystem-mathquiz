@@ -163,16 +163,16 @@ $quiz_finished = $current_question >= $num_questions;
         <!-- The Start Quiz Button only shows if the quiz has not started yet. -->
         <!-- Quiz Not Started Yet -->
         <?php if ($current_question === -1): ?>
-            <h2>Welcome to the Math Quiz!</h2>
-            <form method="post">
-                <button type="submit" name="start_quiz">Start Quiz</button>
+            <h2 class="text-xl font-semibold text-center mb-4">Welcome to the Math Quiz!</h2>
+            <form method="post" class="text-center">
+                <button type="submit" name="start_quiz" class="px-6 py-2 bg-green-500 text-white rounded-md shadow hover:bg-green-600">Start Quiz</button>
             </form>
 
         <!-- Quiz Finished -->
         <?php elseif ($quiz_finished): ?>
-            <h2>Your Score: <?php echo $_SESSION['quiz_settings']['correct_answers'] . " / $num_questions"; ?></h2>
-            <form method="post">
-                <button type="submit" name="start_quiz">Restart Quiz</button>
+            <h2 class="text-xl font-semibold text-center mb-4">Your Score: <?php echo $_SESSION['quiz_settings']['correct_answers'] . " / $num_questions"; ?></h2>
+            <form method="post" class="text-center">
+                <button type="submit" name="start_quiz" class="px-6 py-2 bg-green-500 text-white rounded-md shadow hover:bg-green-600">Restart Quiz</button>
             </form>
 
         <!-- Quiz In Progress -->
@@ -200,22 +200,32 @@ $quiz_finished = $current_question >= $num_questions;
                 shuffle($choices);
                 ?>
                 
-                <h2>Question <?php echo $current_question + 1; ?>:</h2>
-                <p><?php echo $question_data['question']; ?> = ?</p>
-                <form method="post">
+                <!-- Question Part -->
+                <h2 class="text-xl font-semibold mb-4">Question <?php echo $current_question + 1; ?>:</h2>
+                <p class="mb-4 text-lg">What is <?php echo $question_data['question']; ?>?</p>
+
+                <form method="post" class="space-y-2">
                     <?php foreach (array_slice($choices, 0, 4) as $choice): ?>
-                        <input type="radio" name="answer" value="<?php echo $choice; ?>" required> <?php echo $choice; ?><br>
+                        <label class="block">
+                            <input type="radio" name="answer" value="<?php echo $choice; ?>" required class="mr-2"> <?php echo $choice; ?>
+                        </label>
                     <?php endforeach; ?>
-                    <button type="submit" name="submit_answer">Submit</button>
-                    <button type="submit" name="end_quiz">End Quiz</button>
+                    
+                    <!-- Submit Answer & End Quiz Button-->
+                    <div class="flex space-x-4">
+                        <button type="submit" name="submit_answer" class="px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600">Submit</button>
+                        <button type="submit" name="end_quiz" class="px-4 py-2 bg-red-500 text-white rounded-md shadow hover:bg-red-600">End Quiz</button>
+                    </div>
                 </form>
 
             <!-- Validator if Question Data cannot detect -->
             <?php else: ?>
-                <p>Error: Question data is missing.</p>
+                <p class="text-red-500">Error! The Question Data is missing.</p>
             <?php endif; ?>
         <?php endif; ?>
     </div>
+
+    
 
 </body>
 </html>
