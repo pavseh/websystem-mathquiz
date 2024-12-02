@@ -225,7 +225,10 @@ $quiz_finished = $current_question >= $num_questions;
         <?php endif; ?>
     </div>
 
-    
+    <!-- Footer Section -->
+    <footer class="mt-6 text-center text-gray-600">
+        <p>Made by <b>Ivern Buala</b> - for Web Systems & Technologies</p>
+    </footer>
 
 </body>
 </html>
